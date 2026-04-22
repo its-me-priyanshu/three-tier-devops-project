@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Clone'){
+            steps{
+                git branch: "main", url: "https://github.com/its-me-priyanshu/three-tier-devops-project.git"
+                echo "It will clone all the files from Github"
+                 }
+               }
+         stage('Build Docker Image'){
+             steps{
+                 sh "docker build -t backend-app ./backend"
+                 echo "it will create my backend image"
+             }
+         } 
+         stage("Run Container"){
+             steps{
+                 sh "docker run -d -p 3000:3000 backend-app"    
+                 }
+              } 
+    }
+}
