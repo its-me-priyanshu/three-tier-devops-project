@@ -16,6 +16,13 @@ pipeline {
          } 
          stage("Run Container"){
              steps{
+                 sh "docker run -d \
+                              --name postgres-db \
+                              -e POSTGRES_USER=admin \
+                              -e POSTGRES_PASSWORD=admin \
+                              -e POSTGRES_DB=mydb \
+                              -p 5432:5432 \
+                              postgres"
                  sh "docker run -d -p 3000:3000 backend-app"
                  echo "Here it will create a container"
                  }
